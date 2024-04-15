@@ -5,104 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name"/>
-
+    <!--Edit text to enter course name-->
     <EditText
-        android:id="@+id/editTextName"
+        android:id="@+id/idEdtCourseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:hint="@string/enter_your_name"
-        tools:ignore="TextFields" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/email"/>
-
+        android:layout_margin="10dp"
+        android:hint="Enter course Name" />
+    <!--edit text to enter course duration-->
     <EditText
-        android:id="@+id/editTextEmail"
+        android:id="@+id/idEdtCourseDuration"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="@string/enter_your_email"
-        android:autofillHints="" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/age"/>
-
+        android:layout_margin="10dp"
+        android:hint="Enter Course Duration" />
+    <!--edit text to display course tracks-->
     <EditText
-        android:id="@+id/editTextAge"
+        android:id="@+id/idEdtCourseTracks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="@string/enter_your_age"
-        android:autofillHints="" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/country"/>
-
-    <Spinner
-        android:id="@+id/spinnerCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/select_your_country"
-        android:entries="@array/countries"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/date_of_birth"/>
-
+        android:layout_margin="10dp"
+        android:hint="Enter Course Tracks" />
+    <!--edit text for course description-->
     <EditText
-        android:id="@+id/editTextDateOfBirth"
+        android:id="@+id/idEdtCourseDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/select_your_date_of_birth"
-        android:focusable="false"
-        android:onClick="showDatePickerDialog"
-        android:autofillHints=""
-        tools:ignore="TextFields" />
-
-    <RadioGroup
-        android:id="@+id/radioGroupGender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/radioButtonMale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/male"/>
-
-        <RadioButton
-            android:id="@+id/radioButtonFemale"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/female"/>
-    </RadioGroup>
-
-    <CheckBox
-        android:id="@+id/checkBoxAgree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/i_agree_to_the_terms_and_conditions"/>
-
+        android:layout_margin="10dp"
+        android:hint="Enter Course Description" />
+    <!--button for adding new course-->
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/idBtnAddCourse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/submit"/>
-
+        android:layout_margin="10dp"
+        android:text="Add Course"
+        android:textAllCaps="false" />
 </LinearLayout>

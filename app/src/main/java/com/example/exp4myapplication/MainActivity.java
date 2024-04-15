@@ -1,82 +1,53 @@
 package com.example.exp4myapplication;
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
-    // Initialize views
-    private EditText editTextName = findViewById(R.id.editTextName), editTextEmail = findViewById(R.id.editTextEmail), editTextAge, editTextDateOfBirth;
-    private Spinner spinnerCountry;
-    private RadioGroup radioGroupGender;
-    private CheckBox checkBoxAgree;
-    private DatabaseHelper databaseHelper;
-    @SuppressLint("MissingInflatedId")
+    // creating variables for our edittext, button and dbhandler
+    private EditText courseNameEdt, courseTracksEdt, courseDurationEdt, courseDescriptionEdt;
+    private Button addCourseBtn;
+    private com.example.database.DBHandler dbHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editTextName = findViewById(R.id.editTextName);
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextAge = findViewById(R.id.editTextAge);
-        editTextDateOfBirth = findViewById(R.id.editTextDateOfBirth);
-        spinnerCountry = findViewById(R.id.spinnerCountry);
-        radioGroupGender = findViewById(R.id.radioGroupGender);
-        checkBoxAgree = findViewById(R.id.checkBoxAgree);
-        Button buttonSubmit = findViewById(R.id.buttonSubmit);
-        // Initialize database helper
-        databaseHelper = new DatabaseHelper(this);
-        // Set click listener for the Submit button
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+        // initializing all our variables.
+        courseNameEdt = findViewById(R.id.idEdtCourseName);
+        courseTracksEdt = findViewById(R.id.idEdtCourseTracks);
+        courseDurationEdt = findViewById(R.id.idEdtCourseDuration);
+        courseDescriptionEdt = findViewById(R.id.idEdtCourseDescription);
+        addCourseBtn = findViewById(R.id.idBtnAddCourse);
+        // creating a new dbhandler class
+        // and passing our context to it.
+        dbHandler = new com.example.database.DBHandler(MainActivity.this);
+        // below line is to add on click listener for our add course button.
+        addCourseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                saveUserData();
+            public void onClick(View v) {
+
+                // below line is to get data from all edit text fields.
+                String courseName = courseNameEdt.getText().toString();
+                String courseTracks = courseTracksEdt.getText().toString();
+                String courseDuration = courseDurationEdt.getText().toString();
+                String courseDescription = courseDescriptionEdt.getText().toString();
+                // validating if the text fields are empty or not.
+                if (courseName.isEmpty() && courseTracks.isEmpty() && courseDuration.isEmpty() && courseDescription.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Please enter all the data..", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // on below line we are calling a method to add new
+                // course to sqlite data and pass all our values to it.
+                dbHandler.addNewCourse(courseName, courseDuration, courseDescription, courseTracks);
+                // after adding the data we are displaying a toast message.
+                Toast.makeText(MainActivity.this, "Course has been added.", Toast.LENGTH_SHORT).show();
+                courseNameEdt.setText("");
+                courseDurationEdt.setText("");
+                courseTracksEdt.setText("");
+                courseDescriptionEdt.setText("");
             }
         });
     }
-    private void saveUserData() {
-        // Get user input
-        String name = editTextName.getText().toString();
-        String email = editTextEmail.getText().toString();
-        int age = Integer.parseInt(editTextAge.getText().toString());
-        String country = spinnerCountry.getSelectedItem().toString();
-        String dateOfBirth = editTextDateOfBirth.getText().toString();
-        String gender = ((RadioButton) findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString();
-        boolean agreeTerms = checkBoxAgree.isChecked();
-        // Create User object
-        User user = new User(name, email, age, country, dateOfBirth, gender, agreeTerms);
-        // Add user to the database
-        long result = databaseHelper.addUser(user);
-        // Display result
-        if (result != -1) {
-            Toast.makeText(this, "User data saved successfully", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Error saving user data", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void showDatePickerDialog(View view) {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        // Note: month is zero-based, so you may need to add 1 to it
-                        String selectedDate = year + "-" + (month + 1) + "-" + day;
-                        editTextDateOfBirth.setText(selectedDate);
-                    }
-                },
-                // Set default date values (optional)
-                2000, 0, 1
-        );
-        datePickerDialog.show();
-    }
 }
-
