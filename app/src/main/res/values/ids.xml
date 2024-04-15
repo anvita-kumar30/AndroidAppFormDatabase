@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="editTextName" type="id" />
+    <item name="editTextEmail" type="id" />
+    <item name="editTextAge" type="id" />
+    <item name="editTextDateOfBirth" type="id" />
+    <item name="spinnerCountry" type="id" />
+    <item name="radioGroupGender" type="id" />
+    <item name="checkBoxAgree" type="id" />
+    <item name="buttonSubmit" type="id" />
+    <item name="radioButtonMale" type="id" />
+    <item name="radioButtonFemale" type="id" />
+</resources>
